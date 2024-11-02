@@ -15,8 +15,6 @@ class CheckRole
 
         $user = Auth::user();
 
-        // Log pengguna untuk debugging
-        Log::info('Checking user role:', ['user' => $user]);
 
         if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
             return response()->json(['message' => 'Unauthorized

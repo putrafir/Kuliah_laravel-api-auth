@@ -21,3 +21,18 @@ Route::get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum', CheckRole::class . ':admin'])->get('/admin', function () {
     return response()->json(['message' => 'Welcome Admin!']);
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/user/profile', [AuthController::class, 'updateProfile']);
+});
+
+// Route::middleware(['auth:sanctum', CheckRole::class . ':admin'])->group(function () {
+//     Route::delete('/user{id}', [AuthController::class, 'deleteUser']);
+// });
+
+Route::middleware(['auth:sanctum', CheckRole::class . ':admin'])->group(function () {
+    Route::delete('/user/{id}', [AuthController::class, 'deleteUser']);
+});
+
+
+Route::middleware(['auth:sanctum', CheckRole::class . ':admin'])->get('/users', [AuthController::class, 'getAllUsers']);
